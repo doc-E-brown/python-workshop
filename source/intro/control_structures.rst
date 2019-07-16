@@ -266,3 +266,286 @@ The structure of an ``elif`` statement in Python syntax is as follows:
        statement_5
    statement_3 # Not executed as part of the if statement
 
+So what is important here? 
+
+1. The ``if`` statement: you cannot have an ``else`` statement without and ``if`` statement.
+2. The test condition of the ``if`` statement must evaluate to ``False``.
+3. The ``elif`` keyword must be on its online, followed by the test condition.
+4. The **colon (:)** following the test condition, this indicates that the following statements are part of the control structure
+5. The new line after the **colon (:)**
+6. The indentation of each of the lines within the statement.  All the same rules apply as with the ``if`` statement.
+
+Let's try some examples:
+
+.. doctest::
+
+   >>> age = 18
+   >>> if (age > 18):
+   ...     print("Sweet, let's have a beer!") 
+   ... elif (age == 18):
+   ...     print("Can I please see some ID?")
+   ... else:
+   ...     print("Or maybe something else...?")
+   Can I please see some ID?
+
+
+   >>> temperatureFlag = 0
+   >>> pressureFlag = 1
+   >>> humidityFlag = 0
+
+   >>> if temperatureFlag:
+   ...    print("Temperature flag is set") 
+   ... elif pressureFlag:
+   ...    print("Pressure flag is set") 
+   ... elif humidityFlag:
+   ...    print("Humidity flag is set") 
+   ... else:
+   ...    print("All is well")
+   Pressure flag is set
+
+
+Looping Structures
+------------------
+
+Looping structures execute a body of code subject repeatedly subject to some condition.  There are two types of loops within Python:
+
+* ``while`` loops
+* ``for`` loops
+
+
+while Loops
+-----------
+
+``while`` loops are the most simple looping structures within Python.  ``while`` loops continue to execute a block of code, **while the test condition remains ``True``**.    The syntax is as follows:
+
+.. code:: python
+   :number-lines:
+
+   while condition_is_true:
+       statement_1
+       statement_2
+   statement_3 # Not executed as part of the loop 
+
+The test condition of the ``while`` statement is evaluated first and at each stage in the loop after statement 2 and thus has the following properties.
+
+* If the condition statement (*condition_is_true*) in the above example is not ``true`` then *statement_1* and *statement_2* will not be executed.
+* After executing *statement_1* and *statement_2* the test condition *condition_is_true* is no longer evaluates the ``True`` the loop will not continue.  After executing *statement_2* the condition statement will be checked again to see if the loop needs to run another time.
+
+.. warning::
+   If the test condition never evaluates to be ``False`` the look will continue forever, this is known as an **infinite loop** and can be a common programming error.  This is particularly the case if the loop is dependent on other events such as user input or the processing of some other information.  If your program seems to "hang" an infinite loop may be the cause of your problems.
+
+Try this simple looping structure 
+
+.. doctest::
+
+   >>> num = 0
+   >>> while (num < 5):
+   ...     print(num)
+   ...     num += 1 # Without this line we will get an infinite loop!!!
+   0
+   1
+   2
+   3
+   4
+
+.. note::
+   **Question** Why would an infinite loop occur without the line ``num += 1`` 
+
+and compare to:
+
+.. doctest::
+
+   >>> num = 0
+   >>> while (num < 5):
+   ...     num += 1
+   ...     print(num)
+   1
+   2
+   3
+   4
+   5
+
+As described above if the test condition is not ``True`` when the interpreter arrives at the while loop the contents of the loop will not execute.
+
+.. doctest::
+
+   >>> num = 0
+   >>> while (num > 5):
+   ...     num += 1
+   ...     print(num)
+
+
+for Loops
+-----------
+
+``for`` loops are arguably the most powerful looping constructs within Python, because of how they can be used.  
+A ``for`` loop takes a data than can be iterated (looped) through such as lists or tuples of numbers (we will cover lists in :ref:`Data Structures`) and executes the block of code for each item in the list.  Unless otherwise specified the ``for`` loop will always execute the code for each item in the data.
+
+The syntax of a ``for`` loop is as follows:
+
+.. code:: python
+   :number-lines:
+
+   for item in iterable:
+       statement_1
+       statement_2
+   statement_3 # Not executed as part of the loop 
+
+So what is important here? 
+
+1. The ``for`` keyword to indicate the start of the for loop
+2. The variable **item**, this is a temporary variable name than can is to be used the loop and is the reference to the current value of item.  This is just a regular variable as every other in Python.  If a variable of the name specified e.g. **item** does not exist at this point it will be created at this point.
+3. The **colon (:)** following the iterable, this indicates that the following statements are part of the control structure
+4. The new line after the colon
+5. The indentation of each of the lines within the statement.  All the same rules apply as with the ``if`` statement.
+
+Let's consider using a ``for`` loop with a simple list data structure (again we will cover lists in :ref:`Data
+Structures`) we will start with a list of the following numbers: 32, 354, 754, 78, 51 for will **iterate** through the
+list getting each number at a time.
+
+.. doctest::
+
+   >>> numbers = [32, 354, 754, 78, 51] 
+   >>> for num in numbers: 
+   ...     print(num)
+   32
+   354
+   754
+   78
+   51
+
+Notice that in the example above the ``for`` loop assigned each value in *numbers* to the variable *num*, **in the
+order**
+in which they occurred in the *numbers*.  Also notice that the variable *num* was not defined before executing the
+``for`` loop.  The Python interpreter created the variable for us in the definition of the ``for`` loop, when can now
+access the variable after the ``for`` loop, it will simply be the last value it was assigned during the execution of the
+``for`` loop.
+
+.. doctest::
+
+   >>> numbers = [32, 354, 754, 78, 51] 
+   >>> for num in numbers: 
+   ...     print(num)
+   32
+   354
+   754
+   78
+   51
+   >>> num
+   51
+
+**Range Function**
+
+One of the most common uses of ``for`` loops is to repeat a sequence of code a fixed number of times.  Say we wanted to
+repeat some data analysis 10 times because we have 10 replicates of some information set.  This is where the ``range``
+function is very handy.  We simply provide the ``range`` function the number of replicates and it will take care of the
+rest.  Say we wanted a series of numbers 0, 1, 2, 3 we could simply call ``range(4)``.
+
+.. note::
+   The ``range`` function is known as a *half open* range function as it includes the first value, but not the last
+   value in the function.  Specifying ``range(4)`` is the same as ``range(0, 4)`` and thus includes the values 0, 1, 2,
+   3 but **NOT** 4; mathematically this is [0, 4).
+
+Looking at the `Range documentation`_ we can see that the range function can take 3 values:
+
+.. code:: python
+
+    range(stop)
+    range(start, stop, step)
+
+Where:
+
+* **start** is the start value of the sequence of numbers returned 
+* **stop** is that half open stop value i.e. values less than stop are returned
+* **step** is how much to increase or decrease each subsequent value returned from the function 
+
+When only one number is provided to the range function it specifies the stop value.
+
+.. _Range documentation: https://docs.python.org/3/library/stdtypes.html#range
+
+
+Let's look at a few examples to solidify our understanding:
+
+.. doctest::
+
+    >>> for num in range(4): # stop value only
+    ...     print(num)
+    0
+    1
+    2
+    3
+    
+    >>> for num in range(1, 5): # start & stop value
+    ...     print(num)
+    1
+    2
+    3
+    4
+
+    >>> for num in range(10, 20, 2): # start, stop & step value
+    ...     print(num)
+    10
+    12
+    14
+    16
+    18
+
+
+    >>> for num in range(40, 30, -2): # start, stop & step value
+    ...     print(num)
+    40
+    38
+    36
+    34
+    32
+
+
+Nesting Control Structure
+--------------------------
+
+You can embed or **nest** any of the control structures discussed above to configure the program flow to what you require.  Nesting control structures essentially combines them in a specified order to enable a logical sequence of events.  So let's consider an example where we want to find all of the even numbers between 1 and 100 (a trivial example I know):
+
+.. note::
+   Remember we can use the modulus operator (%) to determine if there are any remaining values after division.  We can check for an even number using ``num % 2 == 0``.
+
+
+.. doctest::
+
+   >>> for num in range(1, 20):
+   ...     if (num % 2) == 0:
+   ...         print(num)
+   2
+   4
+   6
+   8
+   10
+   12
+   14
+   16
+   18
+
+When we consider the execution of the above code, remember:
+
+* The ``for`` loop will repeatedly execute all code that is within its scope i.e. is indented by 4 spaces more than it (this includes the ``if`` statement)
+* The ``if`` statement will only execute the code that is within its scope.
+
+.. tip::
+   **PEP8** reminder.  Use four (4) spaces for indentation, **NOT** tabs!
+
+.. note:: Exercise
+   We could also write the if statement above as:
+
+   .. code:: python 
+
+       if not (num % 2):
+           print(num)
+
+   Why? If you are unsure execute the following statements in an interpreter to find out.
+
+   .. code:: python 
+      :number-lines:
+      
+       num % 2
+       not (num % 2)
+
+
