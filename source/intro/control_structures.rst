@@ -548,4 +548,96 @@ When we consider the execution of the above code, remember:
        num % 2
        not (num % 2)
 
+We can also embed for and while loops to do funky (and useful) things.  What does this piece of code do?
 
+
+.. code:: python
+   :number-lines:
+
+    for i in range(10):
+        for j in range(5):
+            print("%d-%d", % (i, j))
+
+This is another example of **nested loops** with the j loop nested within the i loop. 
+
+Have a play with a bunch of different mixed, nested control structures and see what they do.  Just remember each line is
+executed after the previous and the scope of the loop / if statement is controlled by the indentation.
+
+Controlling Looping Structures
+-------------------------------
+
+So what is we want to get out of a loop early?  It is specified to run for 10000 times, but sometimes we do want this to happen and other times we don't?
+
+**Break statements**
+
+There is where a ``break`` comes into play.  What a break statement does is indicate to Python to exit from the current loop.  Consider the following example where we have specified the for loop to iterate 10 times, but we have a break statement when i is 5 to escape from the loop.
+
+.. doctest::
+
+   >>> for num in range(10):
+   ...    print(num)
+   ...    if (num == 5): # when num is 5 break from the loop
+   ...        break
+   0
+   1
+   2
+   3
+   4
+   5
+
+The key thing to remember about break statements is that they cause the interpreter to ``break`` from the **innermost**
+loop.  So consider the following example:
+
+.. doctest::
+
+   >>> for num in range(2):
+   ...    for num2 in range(100):
+   ...        if (num2 == 5): # when num2 is 5 break from the loop
+   ...            break
+   ...        print("%d-%d" % (num, num2))
+   0-0
+   0-1
+   0-2
+   0-3
+   0-4
+   1-0
+   1-1
+   1-2
+   1-3
+   1-4
+
+
+In this example the ``break`` statement causes the interpreter to exit the ``for num2 in range(100)`` loop but **not** the
+outer ``for num in range(2)`` loop.
+
+.. tip::
+   The ``break`` statement is often used in the context of an ``if`` statement as shown in the example above.  This is
+   particularly useful to look for circumstances where you no longer want to execute the rest of the loop.  If the loop
+   is no longer appropriate, get out!
+
+Continued Statements
+----------------------
+
+So what if we don't want to just exit from the loop?  We may want to selectively ignore some code within the loop and just jump back up to the top of the looping structure.  Of course we could do this by embedding code within the scope of an ``if`` statement and only executing if some condition is ``True``.  Using an ``if`` statement in this way can be useful but it can also result in a large block of code being indented within an ``if`` statement and the scenario that causes us to go back to the top of the loop occurs infrequently.  In such an example we can use the ``continue`` statement.
+
+Consider the following example:
+
+.. doctest::
+
+   >>> for num in range(5):
+   ...    if (num == 3): # when num is 3 jump to the top of the loop 
+   ...        continue 
+   ...    print(num)
+   0
+   1
+   2
+   4
+
+
+Exercises
+----------
+
+1. Write a program that calculates the sum of the squares of the numbers 1 to 1000.
+2. Using the area of a circle program that you created in :ref:`Variables`, modify it to repeatedly ask the user for the
+   radius.  Calculate the area of the circle using the user's input and return the result.  If the user enters a 0 or
+   negative value for the radius the program should terminate.
