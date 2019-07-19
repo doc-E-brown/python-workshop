@@ -316,7 +316,7 @@ Looping structures execute a body of code subject repeatedly subject to some con
 while Loops
 -----------
 
-``while`` loops are the most simple looping structures within Python.  ``while`` loops continue to execute a block of code, **while the test condition remains ``True``**.    The syntax is as follows:
+``while`` loops are the most simple looping structures within Python.  ``while`` loops continue to execute a block of code, while the test condition remains ``True``.    The syntax is as follows:
 
 .. code:: python
    :number-lines:
